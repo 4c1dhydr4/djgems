@@ -1,0 +1,62 @@
+{% extends 'index.html' %}
+{% load static from staticfiles %}
+{% block body %}
+  <h2 class="logo">Gems </h2><span class="slogan">Conoce la ruta de tu bus en Lima</span>
+  <form method="post" class="form">
+    {% csrf_token %}
+    <div class="imgcontainer">
+      <img src="{% static 'assets/img/avatar_f.png' %}" alt="Avatar" class="avatar">
+    </div>
+    {% if form.errors %}
+        {% for field in form %}
+            {% for error in field.errors %}
+                <div class="alert alert-danger">
+                    <strong style="{color: red}">{{ error|escape }}</strong>
+                </div>
+            {% endfor %}
+        {% endfor %}
+        {% for error in form.non_field_errors %}
+            <div class="alert alert-danger">
+                <strong style="{color: red}">{{ error|escape }}</strong>
+            </div>
+        {% endfor %}
+    {% endif %}
+      <div class="row">
+        <div class="col-md-12">
+          <div class="form-group ">
+            <label for="username">Usuario:</label>
+            <input type="text" class="form-control" name="username">
+            {{ form.username.errors }}
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="form-group ">
+            <label for="username">Contraseña:</label>
+            <input type="password" class="form-control" name="password">
+            {{ form.password.errors }}
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="form-group">
+             <div class="form-group">
+                <button type="submit" class="btn btn-block btn-success">Ingresar</button>
+                <button type="button" class="facebook">Ingresar con Facebook</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <label>
+          <input type="checkbox" checked="checked" name="remember"> Recuerdame
+        </label>
+      </div>
+      <div class="container">
+        <button type="button" class="cancel_btn">Cancel</button>
+        <span class="forget_pass">Olvidaste tu <a href="#">contraseña?</a></span>
+      </div>
+  </form>
+{% endblock %}
